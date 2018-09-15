@@ -1,11 +1,11 @@
-title=arachnid
+bin=/usr/local/bin
 cc=gcc
-
-* # mimic makefile behavior
+man1=/usr/share/man/man1/
+title=arachnid
 
 b, build
   (cc) *.c -o (title)
 
 i, install
-  gcc *.c -o /usr/local/bin/(title)
-  cp arachnid.1 /usr/share/man/man1/
+  (cc) *.c -o (bin)/(title)
+  cp arachnid.1 (man1)
