@@ -3,9 +3,10 @@ cc=gcc
 man1=/usr/share/man/man1/
 title=arachnid
 
-b, build
+b, build:
   (cc) *.c -o (title)
 
-i, install
+i, install:
+  echo hello
   (cc) *.c -o (bin)/(title)
   cp arachnid.1 (man1)
