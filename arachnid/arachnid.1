@@ -1,0 +1,113 @@
+.TH arachnid 1
+.SH NAME
+\fBarachnid\fR \(en a flexible search program
+.SH SYNOPSIS
+\fBarachnid\fR [\fIOPTIONS\fR] [\fIPATH\fR] \fISTRING\fR
+.SH DESCRIPTION
+.PP
+Arachnid is intended to unify many types of searches one might perform at the
+terminal.
+The types of searches themselves fall into the categories of file content
+searches and and path component searches.
+A file content search is modifiable via the \fB\-b\fR option, which specifies
+an alternative buffer size.
+A path search is modifiable via the \fB\-p\fR, \fB\-n\fR, and \fB\-e\fR
+options.
+These respectively specify to search full paths, path names, or extensions.
+If more than one of these options are provided, the largest is used.
+Their order of precedence is as such: \fB\-e\fR < \fB\-n\fR < \fB\-p\fR.
+Using these options in addition to the \fB-w\fR option, one can specify paths
+to be searched.
+See the examples for more detailed usage.
+.TP
+\fB\-b\fR, \fB\-\-buflen\fR=\fI\,INT\fR
+use a custom buffer size (in bytes)
+.TP
+\fB\-c\fR, \fB\-\-nocolor\fR
+don't colorize output
+.TP
+\fB\-C\fR, \fB\-\-nocount\fR
+don't show match count
+.TP
+\fB\-e\fR, \fB\-\-extonly\fR
+search path extensions only
+.TP
+\fB\-i\fR, \fB\-\-ignorecase\fR
+ignore case
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+display this text and exit
+.TP
+\fB\-l\fR, \fB\-\-followlinks\fR
+follow all symbolic links
+.TP
+\fB\-n\fR, \fB\-\-nameonly\fR
+search final components of path names only
+.TP
+\fB\-p\fR, \fB\-\-pathonly\fR
+search full path names only
+.TP
+\fB\-s\fR, \fB\-\-showspecial\fR
+include all special devices
+.TP
+\fB\-t\fR, \fB\-\-total\fR
+include the total match count
+.TP
+\fB-w\fR, \fB\-\-with\fR=\fI\,STRING\fR
+if searching extensions, file names,
+or paths was specified, search paths that contain
+STRING in the specified component
+.PP
+The PATH argument is a valid path.
+If omitted, the CWD is used.
+If '\-', search \fBSTDIN\fR.
+.PP
+The STRING argument is the search string, and is not optional.
+The search string may be empty.
+.SH EXIT STATUS
+.TP
+0
+OK
+.TP
+1
+Error
+.SH EXAMPLES
+.TP
+\fBarachnid string\fR
+For every file beneath the CWD, if "string" appears in the file, print the
+number of occurrences and the corresponding path. 
+.TP
+\fBarachnid \-i /usr/share/man/man1/man.1 .SH\fR
+Print the number of sections in \fBman\fR's manual page.
+.TP
+\fBarachnid ''\fR
+Prints the file size + 1 and path of every file beneath the CWD.
+.TP
+\fBarachnid \-lpCs ''\fR
+Prints every accessible path beneath the CWD.
+.TP
+\fBarachnid \-e / .conf\fR
+Prints all configuration files beneath the root directory.
+.TP
+\fBarachnid \-ew .txt string\fR
+For each file beneath the CWD with the ".txt" extension, print the number of
+occurrences of "string" and the corresponding path.
+.SH AUTHOR
+Written by Bailey Defino.
+.SH COPYRIGHT
+Copyright (C) 2018 Bailey Defino
+.PP
+<https://bdefino.github.io>
+.PP
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+.PP
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+.PP
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
