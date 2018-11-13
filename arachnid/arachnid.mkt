@@ -7,6 +7,5 @@ b, build:
   (cc) *.c -o (title)
 
 i, install:
-  echo hello
   (cc) *.c -o (bin)/(title)
   cp arachnid.1 (man1)
