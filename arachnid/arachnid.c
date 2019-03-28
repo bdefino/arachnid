@@ -23,10 +23,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 /* return the number of times a key appears in a file */
 unsigned long farachnid(FILE *fp, const char *key, size_t key_size,
     int flags, size_t buflen) {
-  char buffer[buflen], c, cskey[key_size];
+  char *buffer, c, *cskey;
   unsigned int bytes_read, chars_matched, i, size, start;
   unsigned long matches;
   
+  if (!buflen
+      || (buffer = (char *) calloc(1, buflen)) == NULL)
+    return 0;
+  
+  if ((cskey = (char *) calloc(1, key_size)) == NULL) {
+    free(buffer);
+    return 0;
+  }
   matches = 0L;
   
   if (fp != NULL && key != NULL) {
@@ -36,8 +44,11 @@ unsigned long farachnid(FILE *fp, const char *key, size_t key_size,
     size = ftell(fp) - start;
     fseek(fp, start, SEEK_SET);
     
-    if (key_size == 0) /* empty string */
+    if (key_size == 0) { /* empty string */
+      memset(buffer, '\0', buflen);
+      free(buffer);
       return size + 1L;
+    }
     buflen = (!buflen ? DEFAULT_BUFLEN : buflen);
     
     for (i = 0; i < key_size; i++)
@@ -63,6 +74,10 @@ unsigned long farachnid(FILE *fp, const char *key, size_t key_size,
       }
     }
   }
+  memset(buffer, '\0', buflen);
+  free(buffer);
+  memset(cskey, '\0', key_size);
+  free(cskey);
   return matches;
 }
 
